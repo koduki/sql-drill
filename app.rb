@@ -9,7 +9,7 @@ def exec(action, params)
 end
 
 get '/' do
-    erb :hello
+    erb :problem
 end
 
 get '/account_summary' do
