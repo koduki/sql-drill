@@ -27,6 +27,35 @@
     <script src="https://www.w3schools.com/lib/codemirror_sql.js"></script>
 
     <script>
+      function showResult(response){
+        let status = response["status"]
+        let result = response["result"]
+        console.log(result[0])
+      
+        const header = `<tr>${result[0].map(x => `<th>${x}</th>`).join("")}</tr>`
+
+        let body = "";
+        for(let i=1;i<result.length;i++){
+            body += `<tr>${result[i].map(x => `<td>${x}</td>`).join("")}</tr>`;
+        }
+
+        const result_html = "<h2>Result:</h2>" +
+        "<p>Number of Records: 8</p>" +
+        `<table class="table table-striped">${header}${body}</table>`
+        $("#tryitresult").html(result_html)
+
+      }
+
+      function tryItSQL(){
+        const sql = window.editor.getValue();
+        const headers = {
+            'Accept': 'application/json'
+        };
+        fetch("./query/0001", {method: "POST", headers, body:sql})
+        .then((res)=> res.json())
+        .then(showResult)
+        .catch(console.error);
+      }
       $(function() {
         function colorcoding() {
           const ua = navigator.userAgent;
@@ -187,104 +216,14 @@
               <h2>SQL Statement:</h2>
               <textarea id="textareaCodeSQL" wrap="logical">
 SELECT * FROM TableName;
-        </textarea
-              >
+        </textarea>
               <p>SQLを入力して"Run SQL"ボタンを押してください。</p>
             </form>
-            <button class="btn btn-success" type="button">
+            <button class="btn btn-success" type="button" onclick="tryItSQL()">
               Run SQL &raquo;
             </button>
           </div>
           <div id="tryitresult">
-            <h2>Result:</h2>
-            <div style="padding:10px;">
-              <div style="margin-bottom:10px;">Number of Records: 8</div>
-              <table class="table table-striped">
-                <tbody>
-                  <tr>
-                    <th>CustomerID</th>
-                    <th>CustomerName</th>
-                    <th>ContactName</th>
-                    <th>Address</th>
-                    <th>City</th>
-                    <th>PostalCode</th>
-                    <th>Country</th>
-                  </tr>
-                  <tr>
-                    <td>4</td>
-                    <td>Around the Horn</td>
-                    <td>Thomas Hardy</td>
-                    <td>120 Hanover Sq.</td>
-                    <td>London</td>
-                    <td>WA1 1DP</td>
-                    <td>UK</td>
-                  </tr>
-                  <tr>
-                    <td>11</td>
-                    <td>B's Beverages</td>
-                    <td>Victoria Ashworth</td>
-                    <td>Fauntleroy Circus</td>
-                    <td>London</td>
-                    <td>EC2 5NT</td>
-                    <td>UK</td>
-                  </tr>
-                  <tr>
-                    <td>16</td>
-                    <td>Consolidated Holdings</td>
-                    <td>Elizabeth Brown</td>
-                    <td>Berkeley Gardens 12 Brewery</td>
-                    <td>London</td>
-                    <td>WX1 6LT</td>
-                    <td>UK</td>
-                  </tr>
-                  <tr>
-                    <td>19</td>
-                    <td>Eastern Connection</td>
-                    <td>Ann Devon</td>
-                    <td>35 King George</td>
-                    <td>London</td>
-                    <td>WX3 6FW</td>
-                    <td>UK</td>
-                  </tr>
-                  <tr>
-                    <td>53</td>
-                    <td>North/South</td>
-                    <td>Simon Crowther</td>
-                    <td>South House 300 Queensbridge</td>
-                    <td>London</td>
-                    <td>SW7 1RZ</td>
-                    <td>UK</td>
-                  </tr>
-                  <tr>
-                    <td>57</td>
-                    <td>Paris spécialités</td>
-                    <td>Marie Bertrand</td>
-                    <td>265, boulevard Charonne</td>
-                    <td>Paris</td>
-                    <td>75012</td>
-                    <td>France</td>
-                  </tr>
-                  <tr>
-                    <td>72</td>
-                    <td>Seven Seas Imports</td>
-                    <td>Hari Kumar</td>
-                    <td>90 Wadhurst Rd.</td>
-                    <td>London</td>
-                    <td>OX15 4NB</td>
-                    <td>UK</td>
-                  </tr>
-                  <tr>
-                    <td>74</td>
-                    <td>Spécialités du monde</td>
-                    <td>Dominique Perrier</td>
-                    <td>25, rue Lauriston</td>
-                    <td>Paris</td>
-                    <td>75016</td>
-                    <td>France</td>
-                  </tr>
-                </tbody>
-              </table>
-            </div>
           </div>
         </div>
       </div>
