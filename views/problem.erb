@@ -105,7 +105,7 @@
         <span class="navbar-toggler-icon"></span>
       </button>
       <div class="collapse navbar-collapse" id="collapsibleNavbar">
-        <ul class="navbar-nav">
+        <%# <ul class="navbar-nav">
           <li class="nav-item">
             <a class="nav-link" href="#">Link</a>
           </li>
@@ -115,7 +115,7 @@
           <li class="nav-item">
             <a class="nav-link" href="#">Link</a>
           </li>
-        </ul>
+        </ul> %>
       </div>
     </nav>
 
@@ -123,24 +123,15 @@
       <div class="row">
         <div class="col-sm-6">
           <div class="card card-body">
-            <h2 id="問題">Problem</h2>
-            <p>
-              引用:
-              <a
-                href="https://tech.pjin.jp/blog/2016/04/30/sql%E7%B7%B4%E7%BF%92%E5%95%8F%E9%A1%8C-%E5%95%8F1/"
-                >Tech Pjin - SQL 練習問題 – 問 1</a
-              >
-            </p>
-            <p>
-              各グループの中で FIFA
-              ランクが最も高い国と低い国のランキング番号を表示してください。
-              なお、グループはアルファベット順にソートしなさい。
-            </p>
+            <h2 id="問題">Problem - <%= @problem_title %></h2>
+            <%= @problem_body %>
           </div>
 
           <div class="card card-body" id="problem-tables">
             <h2 id="テーブル">Tables</h2>
-            <p>Countries</p>
+            
+            <% @problem_tables.each do |t| %>
+            <p><%= t[0] %></p>
             <table class="table table-striped">
               <tr>
                 <th>
@@ -159,113 +150,34 @@
                   その他
                 </th>
               </tr>
+              <% t[1][1..-1].each do |r| %>
               <tr>
-                <td>
-                  ID
-                </td>
-                <td>
-                  ID
-                </td>
-                <td>
-                  INTEGER
-                </td>
-                <td>
-                  ◯
-                </td>
-                <td>
-                  auto_increment
-                </td>
+                <td><%= r[0] %></td>
+                <td><%= r[1] %></td>
+                <td><%= r[2] %></td>
+                <td><%= r[3] %></td>
+                <td><%= r[4] %></td>
               </tr>
-              <tr>
-                <td>
-                  NAME
-                </td>
-                <td>
-                  国名
-                </td>
-                <td>
-                  VARCHAR(50)
-                </td>
-                <td></td>
-                <td></td>
-              </tr>
-              <tr>
-                <td>
-                  RANKING
-                </td>
-                <td>
-                  FIFA ランキング
-                </td>
-                <td>
-                  INTEGER
-                </td>
-                <td></td>
-                <td></td>
-              </tr>
-              <tr>
-                <td>
-                  GRUP_NAME
-                </td>
-                <td>
-                  グループ
-                </td>
-                <td>
-                  VARCHAR(1)
-                </td>
-                <td></td>
-                <td></td>
-              </tr>
+              <% end %>
             </table>
+            <% end %>
           </div>
 
           <div class="card card-body" id="problem-example">
-            <h2 id="解答サンプル">Examples:</h2>
+            <h2 id="解答サンプル">Example</h2>
             <table class="table table-striped">
               <tr>
-                html
-                <th>
-                  グループ
-                </th>
-                <th>
-                  ランキング最上位
-                </th>
-                <th>
-                  ランキング最下位
-                </th>
+                <% @problem_example[0].each do |c| %>
+                <th><%= c %></th>
+                <% end %>
               </tr>
+              <% @problem_example[1..-1].each do |r| %>
               <tr>
-                <td>
-                  A
-                </td>
-                <td>
-                  3
-                </td>
-                <td>
-                  56
-                </td>
+                <% r.each do |c| %>
+                <td><%= c %></td>
+                <% end %>
               </tr>
-              <tr>
-                <td>
-                  B
-                </td>
-                <td>
-                  1
-                </td>
-                <td>
-                  62
-                </td>
-              </tr>
-              <tr>
-                <td>
-                  C
-                </td>
-                <td>
-                  8
-                </td>
-                <td>
-                  46
-                </td>
-              </tr>
+              <% end %>
             </table>
           </div>
         </div>
@@ -274,8 +186,7 @@
             <form method="post" target="view" name="tryitform">
               <h2>SQL Statement:</h2>
               <textarea id="textareaCodeSQL" wrap="logical">
-SELECT * FROM Customers
-WHERE City IN ('Paris','London');
+SELECT * FROM TableName;
         </textarea
               >
               <p>SQLを入力して"Run SQL"ボタンを押してください。</p>

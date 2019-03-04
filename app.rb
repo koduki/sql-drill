@@ -9,6 +9,12 @@ def exec(action, params)
 end
 
 get '/' do
+    id = "0001"
+    contents = JSON.load(File.open("problem/#{id}/contents.json"))
+    @problem_title = contents["title"]
+    @problem_body = open("problem/#{id}/#{contents["problem"]}").read
+    @problem_tables = contents["tables"]
+    @problem_example = contents["example"]
     erb :problem
 end
 

@@ -1,0 +1,20 @@
+ {
+    "title":"SQL 練習問題 – 問 1",
+    "problem":"question.html",
+    "answer": "answer.csv",
+    "tables":{
+        "Countries":[
+            ["カラム名","カラム名(JP)","データ型","NOT NULL","その他"],
+            ["ID","ID","INTEGER","◯",""],
+            ["NAME","国名","VARCHAR(50)","",""],
+            ["RANKING","FIFA ランキング","INTEGER","",""],
+            ["GRUP_NAME","グループ","VARCHAR(1)","",""]
+        ]
+    },
+    "example":[
+        ["グループ名","ランキング最上位","ランキング最下位"],
+        ["A",3,56],
+        ["B",1,62],
+        ["C",8,46]
+    ]
+}
