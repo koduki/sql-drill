@@ -1,11 +1,13 @@
 require 'sinatra'
 require 'json'
 
-def exec(action, params)
-    env = params.map{|x|"-e #{x} "}.join
-    response = IO.popen("docker run --network -e action=#{action} #{env} -v /tmp/data:/data koduki/worker", "r+") {|io| 
+def exec(image, sql)
+    cmd = "docker run -e SQL='#{sql}' #{image}"
+    p cmd
+    response = IO.popen(cmd, "r+") {|io| 
         io.each_line.map{|l|l}.join 
     }
+    p response
     response
 end
 
@@ -24,35 +26,8 @@ end
 post '/query/:id' do
     id = params[:id]
     sql = request.body.read.strip
-p sql
+    p sql
 
-    response = {
-        "status" => 0,
-        "result" => [
-            ["グループ名","ランキング最上位","ランキング最下位"],
-            ["A",3,56],
-            ["B",1,62],
-            ["C",8,46]
-        ]
-    }
-    JSON.generate(response)
-end
-
-get '/:user/create' do
-    user = params[:user]
-    response = exec "create", ["u=#{user}"]
-    response
-end
-
-get '/:user/show' do
-    user = params[:user]
-    response = exec "show", ["u=#{user}"]
-    response
-end
-
-get '/:user/deposit/:amount' do
-    user = params[:user]
-    amount = params[:amount]
-    response = exec "deposit", ["u=#{user}", "arg=#{amount}"]
-    response
+    res = exec "koduki/sqljudge-#{id}", sql
+    res
 end

@@ -30,7 +30,6 @@
       function showResult(response){
         let status = response["status"]
         let result = response["result"]
-        console.log(result[0])
       
         const header = `<tr>${result[0].map(x => `<th>${x}</th>`).join("")}</tr>`
 
@@ -40,7 +39,7 @@
         }
 
         const result_html = "<h2>Result:</h2>" +
-        "<p>Number of Records: 8</p>" +
+        "<p>Number of Records: " + (result.length - 1) + "</p>" +
         `<table class="table table-striped">${header}${body}</table>`
         $("#tryitresult").html(result_html)
 
