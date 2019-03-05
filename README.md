@@ -1,6 +1,14 @@
 README
 ========
 
+## setup
+
 ```bash
-$ docker run -it -p 80:80 --privileged -v /var/run/docker.sock:/var/run/docker.sock -v `pwd`:/app koduki/sqljudge
+$ cd sql-drill
+$ docker build -t koduki/sqljudge .
+$ cd problem
+$ docker build -t koduki/sqljudge-worker .
+$ cd 0001
+$ docker build -t koduki/sqljudge-0001 .
+$ docker run -it -v `pwd`:/var/docs koduki/pandoc question.md -o question.html
 ```
