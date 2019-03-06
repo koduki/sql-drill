@@ -28,20 +28,26 @@
 
     <script>
       function showResult(response){
-        let status = response["status"]
-        let result = response["result"]
+        const status = response["status"]
+        const message = response["message"]
+        const result = response["result"]
       
-        const header = `<tr>${result[0].map(x => `<th>${x}</th>`).join("")}</tr>`
+        if(status == 0){
+          const header = `<tr>${result[0].map(x => `<th>${x}</th>`).join("")}</tr>`
 
-        let body = "";
-        for(let i=1;i<result.length;i++){
-            body += `<tr>${result[i].map(x => `<td>${x}</td>`).join("")}</tr>`;
+          let body = "";
+          for(let i=1;i<result.length;i++){
+              body += `<tr>${result[i].map(x => `<td>${x}</td>`).join("")}</tr>`;
+          }
+
+          const result_html = "<h2>Result:</h2>" +
+          "<p>Number of Records: " + (result.length - 1) + "</p>" +
+          `<table class="table table-striped">${header}${body}</table>`
+          $("#tryitresult").html(result_html)
+        } else {
+          const result_html = "<div></div><strong style='color:#FF0000;'>ERROR: " + message + "</strong></div>"
+          $("#tryitresult").html(result_html)
         }
-
-        const result_html = "<h2>Result:</h2>" +
-        "<p>Number of Records: " + (result.length - 1) + "</p>" +
-        `<table class="table table-striped">${header}${body}</table>`
-        $("#tryitresult").html(result_html)
 
       }
 
@@ -226,9 +232,6 @@ SELECT * FROM TableName;
           </div>
         </div>
       </div>
-    </div>
-    <div class="jumbotron text-center" style="margin-bottom:0">
-      <p>Footer</p>
     </div>
   </body>
 </html>
