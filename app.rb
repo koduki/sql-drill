@@ -12,7 +12,11 @@ def exec(image, sql)
 end
 
 get '/' do
-    id = "0001"
+    erb :index
+end
+
+get '/problem/:id' do
+    id = params[:id]
 
     contents = JSON.load(File.open("problem/#{id}/contents.json"))
     @problem_title = contents["title"]

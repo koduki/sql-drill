@@ -51,16 +51,18 @@
 
       }
 
-      function tryItSQL(){
+      function tryItSQL(id){
+        const problem_id = document.URL.split('/').reverse()[0];
         const sql = window.editor.getValue();
         const headers = {
             'Accept': 'application/json'
         };
-        fetch("./query/0001", {method: "POST", headers, body:sql})
+        fetch("/query/" + problem_id, {method: "POST", headers, body:sql})
         .then((res)=> res.json())
         .then(showResult)
         .catch(console.error);
       }
+
       $(function() {
         function colorcoding() {
           const ua = navigator.userAgent;
