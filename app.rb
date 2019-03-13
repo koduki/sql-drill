@@ -12,7 +12,11 @@ def exec(image, sql)
 end
 
 get '/' do
-    id = "0001"
+    erb :index
+end
+
+get '/problem/:id' do
+    id = params[:id]
 
     contents = JSON.load(File.open("problem/#{id}/contents.json"))
     @problem_title = contents["title"]
@@ -27,7 +31,6 @@ post '/query/:id' do
     id = params[:id]
     sql = request.body.read.strip
     p sql
-
-    res = exec "koduki/sqljudge-#{id}", sql
+    res = exec "gcr.io/koduki-docker-test-001-1083/sqljudge/#{id}", sql
     res
 end

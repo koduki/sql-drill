@@ -1,0 +1,30 @@
+ {
+    "title":"SQL 練習問題 – 問 2",
+    "problem":"question.html",
+    "answer": "answer.csv",
+    "tables":{
+        "Countries":[
+            ["カラム名","カラム名(JP)","データ型","NOT NULL","その他"],
+            ["ID","ID","INTEGER","◯",""],
+            ["NAME","国名","VARCHAR(50)","",""],
+            ["RANKING","FIFA ランキング","INTEGER","",""],
+            ["GRUP_NAME","グループ","VARCHAR(1)","",""]
+        ],
+        "Players":[
+            ["カラム名","カラム名(JP)","データ型","NOT NULL","その他"],
+            ["ID","ID","INTEGER","◯",""],
+            ["COUNTRY_ID","国テーブルID","INTEGER","",""],
+            ["UNIFORM_NUM","背番号","INTEGER","",""],
+            ["POSITION","ポジション","VARCHAR(2)","",""],
+            ["NAME","名前","VARCHAR(50)","",""],
+            ["CLUB","所属クラブ","VARCHAR(50)","",""],
+            ["BIRTH","誕生日","DATE","",""],
+            ["HEIGHT","身長","INTEGER","",""],
+            ["WEIGHT","体重","INTEGER","",""]
+        ]
+    },
+    "example":[
+        ["平均身長","平均体重"],
+        [187.6250,82.8854]
+    ]
+}

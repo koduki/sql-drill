@@ -1,0 +1,14 @@
+steps:
+- name: 'gcr.io/cloud-builders/docker'
+  args: ['build', '-t', 'gcr.io/$PROJECT_ID/sqljudge/app', '.']
+- name: 'gcr.io/cloud-builders/docker'
+  args: ['build', '-t', 'sqljudge/workwer', '-f', 'problem/Dockerfile', './problem/']
+- name: 'gcr.io/cloud-builders/docker'
+  args: ['build', '-t', 'gcr.io/$PROJECT_ID/sqljudge/0001', '-f', 'problem/0001/Dockerfile', './problem/0001/']
+- name: 'gcr.io/cloud-builders/docker'
+  args: ['build', '-t', 'gcr.io/$PROJECT_ID/sqljudge/0002', '-f', 'problem/0002/Dockerfile', './problem/0002/']
+images: [
+  'gcr.io/$PROJECT_ID/sqljudge/app',
+  'gcr.io/$PROJECT_ID/sqljudge/0001',
+  'gcr.io/$PROJECT_ID/sqljudge/0002'
+]
