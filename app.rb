@@ -1,14 +1,12 @@
 require 'sinatra'
 require 'json'
+require 'rest-client'
 
-def exec(image, sql)
-    cmd = "docker run -e SQL='#{sql}' #{image}"
-    p cmd
-    response = IO.popen(cmd, "r+") {|io| 
-        io.each_line.map{|l|l}.join 
-    }
-    p response
-    response
+def exec(id, sql)
+    url = "http://problem#{id}.default.svc.cluster.local/"
+    res = RestClient.post url, { :sql => sql }.to_json, {content_type: :json, accept: :json}
+    p res
+    res
 end
 
 get '/' do
@@ -31,6 +29,6 @@ post '/query/:id' do
     id = params[:id]
     sql = request.body.read.strip
     p sql
-    res = exec "gcr.io/koduki-docker-test-001-1083/sqljudge/#{id}", sql
+    res = exec id, sql
     res
 end

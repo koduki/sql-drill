@@ -3,8 +3,11 @@ services:
   dispatcher:
     image: koduki/sqljudge
     ports:
-      - "80:80"
+      - "8080:8080"
     volumes:
       - "/var/run/docker.sock:/var/run/docker.sock"
       - ./:/app
-    privileged: true
+  problem0001:
+    image: koduki/sqljudge-0001
+    ports:
+      - "80:80"
