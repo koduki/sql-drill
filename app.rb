@@ -3,7 +3,7 @@ require 'json'
 require 'rest-client'
 
 def exec(id, sql)
-    url = "http://problem#{id}.default.svc.cluster.local/"
+    url = "https://sqljudge-p#{id}-k66dhjq4na-uc.a.run.app/"
     res = RestClient.post url, { :sql => sql }.to_json, {content_type: :json, accept: :json}
     p res
     res
